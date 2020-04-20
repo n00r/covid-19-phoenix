@@ -36,11 +36,11 @@
             <!-- <p>  <ion-icon name="call-outline" slot="end"></ion-icon> {{list.phone}}</p> -->
           </ion-label>
           
-          <div (click)="addtocart()">
-          <ion-icon name="remove-circle-outline" slot="end" style="    font-size: 26px; color: grey; top: 7px; position: relative;"></ion-icon>
+          <div>
+          <ion-icon name="remove-circle-outline" (click)="removeocart(list)"  slot="end" style="    font-size: 26px; color: grey; top: 7px; position: relative;"></ion-icon>
 
-            1
-          <ion-icon name="add-circle-outline" slot="end" style="    font-size: 26px; color: grey; top: 7px; position: relative;"></ion-icon>
+            {{list.qty}}
+          <ion-icon name="add-circle-outline" (click)="addtocart(list)" slot="end" style="    font-size: 26px; color: grey; top: 7px; position: relative;"></ion-icon>
 
           </div>
     
