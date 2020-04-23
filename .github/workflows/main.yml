@@ -1,29 +1,24 @@
 
-on:
- push:
-  branches:
-   - master
-   
 name: Create Release
 
+on:
+  push: {branches: master}
+  pull_request: {branches: master}
+  repository_dispatch:
+
 jobs:
-  build:
-    name: Create Release
+  job_1:
+    name: test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+    - uses: actions/checkout@v1
+
+    - run: npm ci
+    - run: npm run build
+    - name: Use coturiv/setup-ionic
+      uses: ./
+    - name: Run cordova project tests
+      run: |
+        ionic info
+        ionic cordova platform add android@latest
+        ionic cordova build android
