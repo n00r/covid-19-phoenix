@@ -11,8 +11,16 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
+
+    - run: npm ci
+    - run: npm run build
     - name: Use coturiv/setup-ionic
       uses: coturiv/setup-ionic@v1
-    - name: Build
+    - name: Run cordova project tests
       run: |
-        ionic cordova build android --prod
+        ionic info
+        ionic start testapp blank --cordova --type angular --no-link --no-git
+        cd testapp
+        ionic cordova platform add android@latest
+        ionic cordova build android
