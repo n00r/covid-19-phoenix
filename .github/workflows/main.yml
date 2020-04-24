@@ -20,7 +20,5 @@ jobs:
     - name: Run cordova project tests
       run: |
         ionic info
-        ionic start testapp blank --cordova --type angular --no-link --no-git
-        cd testapp
         ionic cordova platform add android@latest
         ionic cordova build android
